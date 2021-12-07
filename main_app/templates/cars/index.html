@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>All Cars</h1>
+<div class="list-group">
+  {% for car in cars %}
+  <a href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Make :{{ car.make }}</h5>
+    </div>
+
+    <p class="mb-1">Model: {{ car.model }}</p>
+    <p class="mb-1">Year: {{ car.year }}</p>
+    <small class="text-muted">Description: {{ car.description }}</small>
+  </a>
+  {% endfor %}
+</div>
+
+<hr />
+
+{% endblock %}
