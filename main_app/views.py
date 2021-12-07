@@ -17,7 +17,7 @@ cars = [
 
 
 def home(request):
-    return HttpResponse ("<h1> Home </h1>")
+    return render(request, 'home.html')
 
 
 def about(request):
