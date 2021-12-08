@@ -3,8 +3,10 @@
 <h1>All Cars</h1>
 <div class="list-group">
   {% for car in cars %}
-
-  <a href="/cars/{{ car.id }}" class="list-group-item list-group-item-action">
+  <a
+    href="{% url 'detail' car.id%}"
+    class="list-group-item list-group-item-action"
+  >
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">Make :{{ car.make }}</h5>
     </div>
