@@ -3,7 +3,7 @@
 <h1>Car Details</h1>
 
 <div class="list-group">
-  <a href="" class="list-group-item list-group-item-action">
+  <div class="list-group-item list-group-item">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">Make :{{ car.make }}</h5>
     </div>
@@ -11,7 +11,11 @@
     <p class="mb-1">Model: {{ car.model }}</p>
     <p class="mb-1">Year: {{ car.year }}</p>
     <small class="text-muted">Description: {{ car.description }}</small>
-  </a>
+    <div>
+      <a class="btn btn-info" href="{% url 'cars_update' car.id %}">Edit</a>
+      <a class="btn btn-danger" href="{% url 'cars_delete' car.id %}">Delete</a>
+    </div>
+  </div>
 </div>
 <hr />
 {% endblock %}
