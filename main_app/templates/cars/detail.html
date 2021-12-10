@@ -1,21 +1,50 @@
 {% extends 'base.html'%} {% block content %}
 
 <h1>Car Details</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="list-group">
+        <div class="list-group-item list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Make :{{ car.make }}</h5>
+          </div>
 
-<div class="list-group">
-  <div class="list-group-item list-group-item">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Make :{{ car.make }}</h5>
+          <p class="mb-1">Model: {{ car.model }}</p>
+          <p class="mb-1">Year: {{ car.year }}</p>
+          <small class="text-muted">Description: {{ car.description }}</small>
+          <div>
+            <a class="btn btn-info" href="{% url 'cars_update' car.id %}"
+              >Edit</a
+            >
+            <a class="btn btn-danger" href="{% url 'cars_delete' car.id %}"
+              >Delete</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
 
-    <p class="mb-1">Model: {{ car.model }}</p>
-    <p class="mb-1">Year: {{ car.year }}</p>
-    <small class="text-muted">Description: {{ car.description }}</small>
-    <div>
-      <a class="btn btn-info" href="{% url 'cars_update' car.id %}">Edit</a>
-      <a class="btn btn-danger" href="{% url 'cars_delete' car.id %}">Delete</a>
+    <div class="col">
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th>Date</th>
+            <th>Service Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for service in car.service_set.all %}
+          <tr>
+            <td>{{service.date}}</td>
+            <td>{{service.get_service_display}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 <hr />
+
 {% endblock %}
