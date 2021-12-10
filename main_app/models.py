@@ -26,10 +26,13 @@ class Car(models.Model):
 
 # Add new Service model
 class Service(models.Model):
-  date = models.DateField('Service date')
-  service = models.CharField(max_length=3, choices=SERVICES, default=[0][0])
-  # Create a car_id FK
-  car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    date = models.DateField('Service date')
+    service = models.CharField(max_length=3, choices=SERVICES, default=[0][0])
+    # Create a car_id FK
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
 
-  def __str__(self):
-      return f"{self.get_service_display()} on {self.date}"
+    def __str__(self):
+        return f"{self.get_service_display()} on {self.date}"
+
+    class Meta:
+        ordering = ['-date']

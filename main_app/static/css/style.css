@@ -1,3 +1,6 @@
 body {
   background-color: red;
 }
+#id_date {
+  width: 400px;
+}

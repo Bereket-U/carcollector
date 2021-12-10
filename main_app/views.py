@@ -1,8 +1,8 @@
 from django.db.models import fields
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Car
-
+from .forms import ServiceForm
 
 
 def home(request):
@@ -19,7 +19,19 @@ def cars_index(request):
 
 def cars_detail(request, car_id):
     car = Car.objects.get(id = car_id)
-    return render(request, 'cars/detail.html', {'car': car})
+    service_form = ServiceForm()
+    return render(request, 'cars/detail.html', {'car': car, 'service_form': service_form})
+
+def add_service(request, car_id):
+    pass
+
+def add_service(request, car_id):
+  form = ServiceForm(request.POST)
+  if form.is_valid():
+    new_service = form.save(commit=False)
+    new_service.car_id = car_id
+    new_service.save()
+  return redirect('detail', car_id=car_id)
 
 class CarCreate(CreateView):
     model = Car

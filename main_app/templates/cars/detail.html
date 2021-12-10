@@ -26,25 +26,32 @@
     </div>
 
     <div class="col">
-      <table class="table">
-        <thead class="table-light">
-          <tr>
-            <th>Date</th>
-            <th>Service Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for service in car.service_set.all %}
-          <tr>
-            <td>{{service.date}}</td>
-            <td>{{service.get_service_display}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="col s6">
+        <!-- add the action attribute as follows -->
+        <form action="{% url 'add_service' car.id %}" method="post">
+          {% csrf_token %} {{ service_form.as_p }}
+          <input type="submit" class="btn" value="Add Feeding" />
+        </form>
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th>Date</th>
+              <th>Service Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for service in car.service_set.all %}
+            <tr>
+              <td>{{service.date}}</td>
+              <td>{{service.get_service_display}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
-<hr />
+  <hr />
 
-{% endblock %}
+  {% endblock %}
+</div>
