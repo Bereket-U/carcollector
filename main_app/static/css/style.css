@@ -1,6 +1,9 @@
 body {
-  background-color: red;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
-#id_date {
-  width: 400px;
+
+main {
+  flex: 1 0 auto;
 }

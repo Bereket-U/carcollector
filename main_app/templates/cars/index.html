@@ -1,23 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>All Cars</h1>
-<div class="list-group">
-  {% for car in cars %}
-  <a
-    href="{% url 'detail' car.id%}"
-    class="list-group-item list-group-item-action"
-  >
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Make :{{ car.make }}</h5>
+<h2 class="center">All Cars</h2>
+{% for car in cars %}
+<a href="{% url 'detail' car.id%}">
+  <div class="row">
+    <div class="card blue-grey darken">
+      <div class="card-content white-text">
+        <span class="card-title">{{ car.make }}</span>
+        <p>Model: {{ car.model }}</p>
+        <p>Year: {{ car.year }}</p>
+        <p>Description: {{ car.description }}</p>
+      </div>
     </div>
-
-    <p class="mb-1">Model: {{ car.model }}</p>
-    <p class="mb-1">Year: {{ car.year }}</p>
-    <small class="text-muted">Description: {{ car.description }}</small>
-  </a>
-  {% endfor %}
-</div>
-
-<hr />
-
-{% endblock %}
+  </div>
+</a>
+{% endfor %} {% endblock %}
