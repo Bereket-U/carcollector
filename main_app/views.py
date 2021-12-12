@@ -6,6 +6,7 @@ from .models import Car, Accessory
 from .forms import ServiceForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -16,19 +17,19 @@ def about(request):
     return render(request, 'about.html')
 
 # Add new view
+@login_required
 def cars_index(request):
     cars = Car.objects.filter(user=request.user)
     return render(request, 'cars/index.html', { 'cars': cars })
 
+@login_required
 def cars_detail(request, car_id):
     car = Car.objects.get(id = car_id)
     accessories_car_doesnt_have = Accessory.objects.exclude(id__in = car.accessories.all().values_list('id'))
     service_form = ServiceForm()
     return render(request, 'cars/detail.html', {'car': car, 'service_form': service_form, 'accessories': accessories_car_doesnt_have})
 
-def add_service(request, car_id):
-    pass
-
+@login_required
 def add_service(request, car_id):
   form = ServiceForm(request.POST)
   if form.is_valid():
@@ -36,6 +37,12 @@ def add_service(request, car_id):
     new_service.car_id = car_id
     new_service.save()
   return redirect('detail', car_id=car_id)
+
+@login_required
+def assoc_accessory(request, car_id, accessory_id):
+  Car.objects.get(id=car_id).accessories.add(accessory_id)
+  return redirect('detail', car_id=car_id)
+
 
 class CarCreate(CreateView):
     model = Car
@@ -74,10 +81,6 @@ class AccessoryUpdate(UpdateView):
 class AccessoryDelete(DeleteView):
   model = Accessory
   success_url = '/accessories/'
-
-def assoc_accessory(request, car_id, accessory_id):
-  Car.objects.get(id=car_id).accessories.add(accessory_id)
-  return redirect('detail', car_id=car_id)
 
 def signup(request):
     error_message = ''
