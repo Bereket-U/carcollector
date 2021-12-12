@@ -2,42 +2,80 @@
 
 <h2 class="center">Car Details</h2>
 
-  <div class="row">
-    <div class="col s6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">{{ car.make }}</span>
-          <p>Model: {{ car.model }}</p>
-          <p>Year: {{ car.year }}</p>
-          <p>Description: {{ car.description }}</p>
-        </div>
-        <div class="card-action">
-          <a href="{% url 'cars_update' car.id %}">Edit</a>
-          <a href="{% url 'cars_delete' car.id %}">Delete</a>
-        </div>
+<div class="row">
+  <div class="col s6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">{{ car.make }}</span>
+        <p>Model: {{ car.model }}</p>
+        <p>Year: {{ car.year }}</p>
+        <p>Description: {{ car.description }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'cars_update' car.id %}">Edit</a>
+        <a href="{% url 'cars_delete' car.id %}">Delete</a>
       </div>
     </div>
+  </div>
+  <div class="col s6">
+    <form action="{% url 'add_service' car.id %}" method="post">
+      {% csrf_token %} {{ service_form.as_p }}
+      <input type="submit" class="btn success" value="Add Service" />
+    </form>
+    <table class="table">
+      <thead class="table-light">
+        <tr>
+          <th>Date</th>
+          <th>Service Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for service in car.service_set.all %}
+        <tr>
+          <td>{{service.date}}</td>
+          <td>{{service.get_service_display}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
     <div class="col s6">
-      <form action="{% url 'add_service' car.id %}" method="post">
-        {% csrf_token %} {{ service_form.as_p }}
-        <input type="submit" class="btn success" value="Add Service" />
-      </form>
-      <table class="table">
-        <thead class="table-light">
-          <tr>
-            <th>Date</th>
-            <th>Service Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for service in car.service_set.all %}
-          <tr>
-            <td>{{service.date}}</td>
-            <td>{{service.get_service_display}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <h3>Accessories</h3>
+      {% if car.accessories.count %} {% for accessory in car.accessories.all %}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            A <span>{{ accessory.name }}</span>
+          </span>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h5>No accessory!</h5>
+      {% endif %}
+    </div>
+
+    <div class="col s6">
+      <h3>Available Accessory</h3>
+      {% if accessories.count %} {% for accessory in accessories.all %}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            A <span>{{ accessory.name }}</span>
+          </span>
+        </div>
+        <div class="card-action">
+          <form action="{% url 'assoc_accessory' car.id accessory.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn">Add</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h5>{{car.make}} Already Has All Accessory Available</h5>
+      {% endif %}
     </div>
   </div>
   <script>
@@ -49,7 +87,7 @@
       setDefaultDate: true,
       autoClose: true,
     });
-  
+
     // initialize the meal select
     var selectEl = document.getElementById("id_meal");
     M.FormSelect.init(selectEl);

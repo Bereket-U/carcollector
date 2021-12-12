@@ -20,8 +20,9 @@ def cars_index(request):
 
 def cars_detail(request, car_id):
     car = Car.objects.get(id = car_id)
+    accessories_car_doesnt_have = Accessory.objects.exclude(id__in = car.accessories.all().values_list('id'))
     service_form = ServiceForm()
-    return render(request, 'cars/detail.html', {'car': car, 'service_form': service_form})
+    return render(request, 'cars/detail.html', {'car': car, 'service_form': service_form, 'accessories': accessories_car_doesnt_have})
 
 def add_service(request, car_id):
     pass
