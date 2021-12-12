@@ -42,9 +42,13 @@ def add_service(request, car_id):
 
 @login_required
 def assoc_accessory(request, car_id, accessory_id):
-  Car.objects.get(id=car_id).accessories.add(accessory_id)
-  return redirect('detail', car_id=car_id)
+    Car.objects.get(id=car_id).accessories.add(accessory_id)
+    return redirect('detail', car_id=car_id)
 
+@login_required
+def unassoc_accessory(request, car_id, accessory_id):
+    Car.objects.get(id=car_id).accessories.remove(accessory_id)
+    return redirect('detail', car_id=car_id)
 
 class CarCreate(CreateView):
     model = Car

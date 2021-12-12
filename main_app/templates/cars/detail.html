@@ -51,6 +51,12 @@
             A <span>{{ accessory.name }}</span>
           </span>
         </div>
+        <div class="card-action">
+            <form action="{% url 'unassoc_accessory' car.id accessory.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn red">Remove</button>
+            </form>
+          </div>
       </div>
       {% endfor %} {% else %}
       <h5>No accessory!</h5>
