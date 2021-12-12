@@ -7,6 +7,8 @@ from .forms import ServiceForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 def home(request):
@@ -55,30 +57,30 @@ class CarCreate(CreateView):
         return super().form_valid(form)
 
 
-class CarUpdate(UpdateView):
+class CarUpdate(LoginRequiredMixin, UpdateView):
     model = Car
     fields = ['model','year', 'description']
 
-class CarDelete(DeleteView):
+class CarDelete(LoginRequiredMixin, DeleteView):
     model = Car
     success_url = '/cars/'
 
 #acc
-class AccessoryList(ListView):
+class AccessoryList(LoginRequiredMixin, ListView):
   model = Accessory
 
-class AccessoryDetail(DetailView):
+class AccessoryDetail(LoginRequiredMixin, DetailView):
   model = Accessory
 
-class AccessoryCreate(CreateView):
+class AccessoryCreate(LoginRequiredMixin, CreateView):
   model = Accessory
   fields = '__all__'
 
-class AccessoryUpdate(UpdateView):
+class AccessoryUpdate(LoginRequiredMixin, UpdateView):
   model = Accessory
   fields = ['name']
 
-class AccessoryDelete(DeleteView):
+class AccessoryDelete(LoginRequiredMixin, DeleteView):
   model = Accessory
   success_url = '/accessories/'
 
