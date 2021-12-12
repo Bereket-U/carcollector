@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Accessories List</h1>
+
+<a href="{% url 'accessories_create' %}" class="btn">Add Accessory</a>
+
+{% for accessory in accessory_list %}
+<a href="{% url 'accessories_detail' accessory.id %}">
+  <div class="row">
+    <div class="card">
+      <div class="card-content black-text">
+        <span class="card-title">{{ accessory.name }}</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+{% endfor %} {% endblock %}

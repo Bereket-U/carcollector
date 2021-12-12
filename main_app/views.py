@@ -1,7 +1,8 @@
 from django.db.models import fields
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Car
+from django.views.generic import ListView, DetailView
+from .models import Car, Accessory
 from .forms import ServiceForm
 
 
@@ -44,3 +45,26 @@ class CarUpdate(UpdateView):
 class CarDelete(DeleteView):
     model = Car
     success_url = '/cars/'
+
+#acc
+class AccessoryList(ListView):
+  model = Accessory
+
+class AccessoryDetail(DetailView):
+  model = Accessory
+
+class AccessoryCreate(CreateView):
+  model = Accessory
+  fields = '__all__'
+
+class AccessoryUpdate(UpdateView):
+  model = Accessory
+  fields = ['name']
+
+class AccessoryDelete(DeleteView):
+  model = Accessory
+  success_url = '/accessories/'
+
+def assoc_accessory(request, car_id, accessory_id):
+  Car.objects.get(id=car_id).accessories.add(accessory_id)
+  return redirect('detail', car_id=car_id)
