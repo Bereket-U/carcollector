@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 SERVICES = (
   ('BS', 'Basic Service'),
@@ -28,6 +29,7 @@ class Car(models.Model):
     description = models.TextField(max_length=250 )
     # Add the M:M relationship with Accessory
     accessories = models.ManyToManyField(Accessory)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.make
