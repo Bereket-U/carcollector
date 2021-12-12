@@ -1,11 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 
-<h2 class="center">All Cars</h2>
+<h2>All Cars</h2>
+<a href="{% url 'cars_create' %}" class="btn">Add a car</a>
 {% for car in cars %}
 <a href="{% url 'detail' car.id%}">
   <div class="row">
-    <div class="card blue-grey darken">
-      <div class="card-content white-text">
+    <div class="card">
+      <div class="card-content black-text">
         <span class="card-title">{{ car.make }}</span>
         <p>Model: {{ car.model }}</p>
         <p>Year: {{ car.year }}</p>
