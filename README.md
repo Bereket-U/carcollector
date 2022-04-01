@@ -1,6 +1,6 @@
 # Cars Collector<br>Full Stack Web App - Django
 
-Cars Collector is a full stack python - Django app where users manage their cars collection, service/repair date and type, and their car gadgets.
+Cars Collector is a full stack python - Django app where users manage their cars collection, service/repair dates, and their car gadgets.
 
 ---
 
@@ -21,7 +21,7 @@ Cars Collector is a full stack python - Django app where users manage their cars
 
 ### Registration / Login
 
-Users have to be registerd and login to get access and manage their cars repair date.
+Users have to be registerd and login to get access and manage their cars and repair dates.
 
 ### Add Car and Accessories
 
