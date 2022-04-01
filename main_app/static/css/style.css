@@ -15,9 +15,11 @@ main {
   flex: 1 0 auto;
 }
 footer {
-  position: fixed;
   bottom: 0;
   width: 100%;
   color: white;
   text-align: center;
+}
+h1 {
+  color: black;
 }
